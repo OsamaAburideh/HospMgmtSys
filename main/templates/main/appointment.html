@@ -1,0 +1,96 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<form method="post" action="">
+{% csrf_token %}
+  <div class="form-group">
+    <label for="doctor">Doctor</label>
+     <select name="doctor" class="btn btn-bed" id="doctor">
+                    {% for doctor in doctors %}
+                        <option value={{ doctor.id }}>{{ doctor }}</option>
+                    {% endfor %}
+  </div>
+  <div class="form-group">
+    <label for="description" >description</label>
+    <input type="text" name="description" class="form-control" id="description" placeholder="Describe your problem">
+  </div>
+  <button type="submit" class="btn btn-primary">Request Appointment</button>
+</form>
+    <div class="table-responsive mt-3">
+    <h1>Your appointments</h1>
+        <table class="table table-hover">
+            <thead>
+                <th><h3>Date</h3></th>
+                <th><h3>Time</h3></th>
+                <th><h3>Doctor</h3></th>
+                <th><h3>Description</h3></th>
+                <th><h3>Delete</h3></th>
+            </thead>
+
+            <tbody>
+                {% for app in appointments %}
+
+                <tr class="mx-auto">
+                    {% if app.approved == True %}
+                        <td><h5>{{ app.appointment_date }}</h5></td>
+                        <td><h5>{{ app.appointment_time }}</h5></td>
+                        {% else %}
+                        <td><h5>None</h5></td>
+                        <td><h5>None</h5></td>
+                    {% endif %}
+                    <td><h5>{{ app.doctor }}</h5></td>
+                    <td><h5>{{ app.description }}</h5></td>                    
+                    <td>                        
+                        <button type="button" data-toggle="modal" data-target="#modalID{{ forloop.counter }}" class="btn btn-danger">Delete</button>
+                        <!--Modal-->
+                        <div id="modalID{{ forloop.counter }}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">
+                                            {{ model_name }}
+                                        </h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Are you sure you want to delete?</p>
+                                        <div class="form-inline">
+                                            <div class="modal-footer" style="border-top: none;">
+                                                <button type="button" class="btn btn-default"
+                                                        data-dismiss="modal">Cancel
+                                                </button>
+                                            
+                                                <form  action="/patientAppointmentDelete/{{app.id}}"
+                                                        method="post">
+                                                    {% csrf_token %}
+                                                    <button type="submit"
+                                                            class="btn btn-danger">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+        </table>
+
+    </div>
+    <!-- Showing the message  -->
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script>
+            let m = "{{ message }}";
+            swal("Perfect !", m, "success");
+        </script>
+        {% endif %}
+    {% endfor %}
+{% endblock content %}

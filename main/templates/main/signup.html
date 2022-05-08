@@ -1,0 +1,72 @@
+{% extends 'main/base.html' %}
+{% load static %}
+
+{% block contentTitle %}
+    Patients SignUp
+{% endblock contentTitle %}
+
+{% block content %}
+
+    <form action="" method="post">
+    {% csrf_token %}
+
+        <div class="container">
+            <div class="patient-form ">
+                <div class="row">
+                <div class="form-field col-md-6">
+                        <input type="text" id="name" class="input-text" type="text" name="username" placeholder="Username">
+                    </div>
+                     <!-- <div class="form-field col-md-6">
+                        <input type="text" id="name" class="input-text" type="text" name="password" placeholder="Password">
+                    </div> -->
+
+                    <div class="password">
+                        <div class="pass row">
+                            <i class="fas fa-key col-2"></i>
+                            <input id="password" class="input-text" type="password" name="password" placeholder="Password">
+                        </div>
+                    </div>
+
+                    <!--MIGHT HAVE TO ADD THAT CONFIRM IN VIEWS>PY-->
+
+                    <div class="password">
+                        <div class="pass row">
+                            <i class="fas fa-key col-2"></i>
+                            <input id="Confirm-password" class="input-text" type="password" name="Confirm-Password" placeholder="Confirm-Password">
+                        </div>
+                    </div>
+
+                    <div class="form-field col-md-6">
+                        <input type="text" id="name" class="input-text" type="text" name="name" placeholder="Name">
+                    </div>
+
+                    <div class="form-field col-md-6">
+                        <input type="text" id="phone_num" class="input-text" type="text" name="phone_num" placeholder="Phone no.">
+                    </div>
+
+                    <div class="form-field col-md-6">
+                        <input type="text" id="patient_relative_name" class="input-text" type="text" name="patient_relative_name" placeholder="Relative's name">
+                    </div>
+
+                    <div class="form-field col-md-6">
+                        <input type="text" id="patient_relative_contact" class="input-text" type="text" name="patient_relative_contact" placeholder="Relative's contact">
+                    </div>
+
+                    <div class="form-field col-md-12">
+                        <input type="text" id="patient_relative_contact" class="input-text" type="text" name="address" placeholder="Address">
+                    </div>
+                    <div class="row">
+                        <div class="form-field col-md-6">
+                            <input type="hidden" id="dob" class="input-text" type="date" name="dob">
+                        </div>
+
+
+                </div>
+
+            </div>
+
+
+    </div>
+        <button class="btn col-lg-4 btn-block mx-auto btn-info mb-4" >SignUp</button>
+    </form>
+{% endblock content %}
